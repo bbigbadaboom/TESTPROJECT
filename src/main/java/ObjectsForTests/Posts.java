@@ -11,8 +11,7 @@ public class Posts {
     private String body;
     private Integer userId;
 
-    public Posts(Integer id, String title, String body, Integer userId) {
-        this.id = id;
+    public Posts(String title, String body, Integer userId) {
         this.title = title;
         this.body = body;
         this.userId = userId;
@@ -32,6 +31,16 @@ public class Posts {
 
     public Integer getUserId() {
         return userId;
+    }
+
+    public Posts(Integer id, String title, String body, Integer userId) {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.userId = userId;
+    }
+
+    public Posts() {
     }
 
     @Override

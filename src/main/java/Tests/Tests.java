@@ -1,14 +1,64 @@
 package Tests;
 
+import ObjectsForTests.Posts;
 import Steps.Steps;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class Tests {
-    Steps s = new Steps();
-    @Test
-    public void test() {
-        s.sendGetHttpRequest("https://stackoverflow.com/questions/65677156/could-not-transfer-artifact-from-to-central-intellij");
-        s.verifyStatusCode(205);
+import java.io.IOException;
 
+public class Tests {
+    Steps step = new Steps();
+    String URL = "https://jsonplaceholder.typicode.com/posts";
+    Posts post = new Posts("Привет я Макс", "давай дружить", 111);
+    @Test
+    @DisplayName("GET /posts [статус кода : 200]")
+    public void verify200StatusCodeForGetRequest() {
+        step.sendGetHttpRequest(URL);
+        step.verifyStatusCode(200);
+    }
+
+    @Test
+    @DisplayName("GET /posts [валидация json schema]")
+    public void verifyGetResponseMatchesJsonSchema() {
+        step.sendGetHttpRequest(URL);
+        step.verifyStatusCode(200);
+        step.verifyResponseMatchesJsonSchema("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/GetPostsDTO.json");
+    }
+
+    @Test
+    @DisplayName("GET /posts [тело ответа соответсвует реальным данным]")
+    public void verifyGetResponseMatchesRealData() throws IOException {
+        step.sendGetHttpRequest(URL);
+        step.verifyStatusCode(200);
+        step.verifyResponseMatchesRealData("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/RealDataForGetRequest.json");
+
+    }
+
+    @Test
+    @DisplayName("POST /posts [статус кода : 200]")
+    public void verify200StatusCodeForPOSTRequest() throws IOException {
+        step.sendPOSTHttpRequest(URL, post);
+        step.verifyStatusCode(201);
+    }
+
+    @Test
+    @DisplayName("POST /posts [статус кода : 200]")
+    public void verifyPOSTResponseMatchesJsonSchema() throws IOException {
+        step.sendPOSTHttpRequest(URL, post);
+        step.verifyStatusCode(201);
+        step.verifyResponseMatchesJsonSchema("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/PostPostsDTO.json");
+    }
+
+    @Test
+    @DisplayName("POST /posts [проверка, что пост реально был создан]")
+    public void verifyThatPostWasCreated() throws IOException {
+        Posts p = new Posts();
+        step.sendPOSTHttpRequest(URL, post);
+        step.verifyStatusCode(201);
+        step.saveAnswer(p);
+        step.sendGetHttpRequest(URL);
+        step.verifyStatusCode(200);
+        step.verifyResponseContainsElement(p);
     }
 }

@@ -46,7 +46,7 @@ public class Steps {
                         .contentType(ContentType.JSON)
                         .body(jsonBody)
                         .post(url)
-                        .then()
+                        .then().log().body()
                         .extract().response();
     }
 
@@ -54,7 +54,6 @@ public class Steps {
     public void verifyStatusCode(int statusCode) {
         int realStatusCode = response
                 .then()
-                .log().body()
                 .extract().statusCode();
         assertEquals(realStatusCode, statusCode, "Ответ имеет статус код " + realStatusCode + " вместо " + statusCode);
     }
@@ -95,4 +94,12 @@ public class Steps {
         });
         assertTrue(objectsFromAnswer.contains(object), "Тело ответа не содержит элемента " + object.toString());
     }
+
+    @Step("Cохранено тело ответа")
+    public void saveAnswer(Object object) throws JsonProcessingException {
+      String ans = response.then().extract().body().asString();
+      object = mapper.readValue(ans, Object.class);
+    }
+
+
 }
