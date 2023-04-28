@@ -56,9 +56,9 @@ public class Tests {
         Posts p = new Posts();
         step.sendPOSTHttpRequest(URL, post);
         step.verifyStatusCode(201);
-        step.saveAnswer(p);
+        Object post = step.saveAnswer(p);
         step.sendGetHttpRequest(URL);
         step.verifyStatusCode(200);
-        step.verifyResponseContainsElement(p);
+        step.verifyResponseContainsElement(post);
     }
 }

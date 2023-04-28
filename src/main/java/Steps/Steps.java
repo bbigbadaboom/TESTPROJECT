@@ -96,9 +96,10 @@ public class Steps {
     }
 
     @Step("Cохранено тело ответа")
-    public void saveAnswer(Object object) throws JsonProcessingException {
+    public Object saveAnswer(Object object) throws JsonProcessingException {
       String ans = response.then().extract().body().asString();
       object = mapper.readValue(ans, Object.class);
+      return object;
     }
 
 
