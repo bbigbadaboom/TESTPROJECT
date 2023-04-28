@@ -13,14 +13,14 @@ public class Tests {
     Posts post = new Posts("Привет я Макс", "давай дружить", 111);
     @Test
     @DisplayName("GET /posts [статус кода : 200]")
-    public void verify200StatusCodeForGetRequest() {
+    public void verify200StatusCodeForGetRequestTest() {
         step.sendGetHttpRequest(URL);
         step.verifyStatusCode(200);
     }
 
     @Test
     @DisplayName("GET /posts [валидация json schema]")
-    public void verifyGetResponseMatchesJsonSchema() {
+    public void verifyGetResponseMatchesJsonSchemaTest() {
         step.sendGetHttpRequest(URL);
         step.verifyStatusCode(200);
         step.verifyResponseMatchesJsonSchema("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/GetPostsDTO.json");
@@ -28,7 +28,7 @@ public class Tests {
 
     @Test
     @DisplayName("GET /posts [тело ответа соответсвует реальным данным]")
-    public void verifyGetResponseMatchesRealData() throws IOException {
+    public void verifyGetResponseMatchesRealDataTest() throws IOException {
         step.sendGetHttpRequest(URL);
         step.verifyStatusCode(200);
         step.verifyResponseMatchesRealData("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/RealDataForGetRequest.json");
@@ -37,14 +37,14 @@ public class Tests {
 
     @Test
     @DisplayName("POST /posts [статус кода : 200]")
-    public void verify200StatusCodeForPOSTRequest() throws IOException {
+    public void verify200StatusCodeForPOSTRequestTest() throws IOException {
         step.sendPOSTHttpRequest(URL, post);
         step.verifyStatusCode(201);
     }
 
     @Test
     @DisplayName("POST /posts [статус кода : 200]")
-    public void verifyPOSTResponseMatchesJsonSchema() throws IOException {
+    public void verifyPOSTResponseMatchesJsonSchemaTest() throws IOException {
         step.sendPOSTHttpRequest(URL, post);
         step.verifyStatusCode(201);
         step.verifyResponseMatchesJsonSchema("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/PostPostsDTO.json");
@@ -52,7 +52,7 @@ public class Tests {
 
     @Test
     @DisplayName("POST /posts [проверка, что пост реально был создан]")
-    public void verifyThatPostWasCreated() throws IOException {
+    public void verifyThatPostWasCreatedTest() throws IOException {
         Posts p = new Posts();
         step.sendPOSTHttpRequest(URL, post);
         step.verifyStatusCode(201);
