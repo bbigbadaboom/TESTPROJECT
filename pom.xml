@@ -8,6 +8,19 @@
     <artifactId>TESTPROJECT</artifactId>
     <version>1.0</version>
 
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.jupiter.version>5.9.3</junit.jupiter.version>
+        <junit.platform.version>1.9.1</junit.platform.version>
+        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+        <aspectj.version>1.9.19</aspectj.version>
+        <allure-junit5.version>2.22.0</allure-junit5.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <allure-maven.version>2.10.0</allure-maven.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -82,20 +95,6 @@
             <version>${allure-junit5.version}</version>
         </dependency>
     </dependencies>
-
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.jupiter.version>5.9.3</junit.jupiter.version>
-        <junit.platform.version>1.9.1</junit.platform.version>
-        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
-        <aspectj.version>1.9.19</aspectj.version>
-        <allure-junit5.version>2.22.0</allure-junit5.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <allure-maven.version>2.10.0</allure-maven.version>
-    </properties>
 
     <build>
         <plugins>
