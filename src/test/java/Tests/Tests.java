@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class Tests {
     Steps step = new Steps();
     String URL = "https://jsonplaceholder.typicode.com/posts";
@@ -43,11 +45,21 @@ public class Tests {
     }
 
     @Test
-    @DisplayName("POST /posts [статус кода : 200]")
+    @DisplayName("POST /posts [валидация json schema]")
     public void verifyPOSTResponseMatchesJsonSchemaTest() throws IOException {
         step.sendPOSTHttpRequest(URL, post);
         step.verifyStatusCode(201);
         step.verifyResponseMatchesJsonSchema("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/PostPostsDTO.json");
+    }
+
+    @Test
+    @DisplayName("POST /posts [проверка тела ответа]")
+    public void verifyPOSTResponseBodyTest() throws IOException {
+        step.sendPOSTHttpRequest(URL, post);
+        step.verifyStatusCode(201);
+        assertEquals(post.getTitle(),step.getValue("title"), "Значение title не совпадает");
+        assertEquals(post.getUserId().toString(),step.getValue("userId"), "Значение id не совпадает");
+        assertEquals(post.getBody(),step.getValue("body"), "Значение body не совпадает");
     }
 
     @Test

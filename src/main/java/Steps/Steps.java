@@ -102,5 +102,14 @@ public class Steps {
       return object;
     }
 
+    @Step("Из тела ответа получено значение по пути {value}")
+    public String getValue(String value)  {
+        String val = response.then().extract().body().jsonPath().get(value).toString();
+        return val;
+
+    }
+
+
+
 
 }
