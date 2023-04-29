@@ -16,7 +16,7 @@ import static Tools.PropertiesGetter.getUrlProperty;
 import static Tools.Specifications.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Tests {
+public class Tests extends BaseTest {
     Steps step = new Steps();
     Posts post = new Posts("Привет я Макс", "давай дружить", 111);
     @Test
