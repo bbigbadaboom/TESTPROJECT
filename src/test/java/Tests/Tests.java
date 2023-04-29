@@ -2,11 +2,8 @@ package Tests;
 
 import ObjectsForTests.Posts;
 import Steps.Steps;
-import Tools.PropertiesGetter;
 import Tools.Specifications;
-import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -33,16 +30,16 @@ public class Tests extends BaseTest {
         Specifications.instalSpecifications(specWithURL(getUrlProperty("postUrl")));
         step.sendGetHttpRequest();
         step.verifyStatusCode(200);
-        step.verifyResponseMatchesJsonSchema("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/GetPostsDTO.json");
+        step.verifyResponseMatchesJsonSchema("src/main/java/APIFiles/GetPostsDTO.json");
     }
 
     @Test
-    @DisplayName("GET /posts [тело ответа соответсвует реальным данным]")
+    @DisplayName("GET /posts [Тело ответа соответствует ожидаемому результату]")
     public void verifyGetResponseMatchesRealDataTest() throws IOException {
         Specifications.instalSpecifications(specWithURL(getUrlProperty("postUrl")));
         step.sendGetHttpRequest();
         step.verifyStatusCode(200);
-        step.verifyResponseMatchesRealData("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/RealDataForGetRequest.json");
+        step.verifyResponseMatchesRealData("src/main/java/APIFiles/RealDataForGetRequest.json");
 
     }
 
@@ -90,7 +87,7 @@ public class Tests extends BaseTest {
         step.verifyStatusCode(400);
     }
 
-    //Дальнейший смысл написания проверок на отрицательные коды не вижу, так как функционал по моей логике работет некорреткно и будет с остальным
+    //Дальнейший смысл написания проверок на отрицательные коды не вижу, так как функционал по моей логике работет некорреткно и будет с остальным (реальных требований нет)
 
     @Test
     @DisplayName("POST /posts [валидация json schema]")
@@ -98,7 +95,7 @@ public class Tests extends BaseTest {
         Specifications.instalSpecifications(specWithURLandContentType(getUrlProperty("postUrl"), ContentType.JSON));
         step.sendPOSTHttpRequest(post);
         step.verifyStatusCode(201);
-        step.verifyResponseMatchesJsonSchema("/Users/maksimkorolkov/GIT/TESTPROJECT/src/main/java/APIFiles/PostPostsDTO.json");
+        step.verifyResponseMatchesJsonSchema("src/main/java/APIFiles/PostPostsDTO.json");
     }
 
     @Test

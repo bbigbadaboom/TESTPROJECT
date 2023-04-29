@@ -1,14 +1,11 @@
 package Steps;
 
-import Tools.Specifications;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Step;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.module.jsv.JsonSchemaValidator;
-import io.restassured.specification.RequestSpecification;
 
 
 import java.io.File;
@@ -26,7 +23,7 @@ public class Steps {
     ObjectMapper mapper = new ObjectMapper();
     String answer;
 
-    @Step("Выполнен GET запрос на {url}")
+    @Step("Выполнен GET запрос")
     public void sendGetHttpRequest() {
         response =
                 given()
@@ -37,7 +34,7 @@ public class Steps {
                         .extract().response();
     }
 
-    @Step("Выполнен POST запрос на {url}")
+    @Step("Выполнен POST запрос")
     public void sendPOSTHttpRequest(Object body) throws IOException {
         mapper.writeValue(writer, body);
         String jsonBody = writer.toString();
