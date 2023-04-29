@@ -9,7 +9,10 @@ public class Posts {
     private Integer id;
     private String title;
     private String body;
+
+    private Integer intBody;
     private Integer userId;
+    private String stringUserId ;
 
     public Posts(String title, String body, Integer userId) {
         this.title = title;
@@ -40,7 +43,22 @@ public class Posts {
         this.userId = userId;
     }
 
+    public Posts(Integer intBody, Integer userId) {
+        this.intBody = intBody;
+        this.userId = userId;
+    }
+
+    public Posts(String body, String stringUserId) {
+        this.body = body;
+        this.stringUserId = stringUserId;
+    }
+
     public Posts() {
+    }
+
+    public Posts(String body, Integer userId) {
+        this.body = body;
+        this.userId = userId;
     }
 
     @Override

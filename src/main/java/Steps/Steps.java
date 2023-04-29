@@ -1,5 +1,6 @@
 package Steps;
 
+import Tools.Specifications;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -7,6 +8,7 @@ import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.module.jsv.JsonSchemaValidator;
+import io.restassured.specification.RequestSpecification;
 
 
 import java.io.File;
@@ -25,28 +27,28 @@ public class Steps {
     String answer;
 
     @Step("Выполнен GET запрос на {url}")
-    public void sendGetHttpRequest(String url) {
-
+    public void sendGetHttpRequest() {
         response =
                 given()
                         .when()
-                        .get(url)
+                        .get()
                         .then()
+                        .log().body()
                         .extract().response();
     }
 
     @Step("Выполнен POST запрос на {url}")
-    public void sendPOSTHttpRequest(String url, Object body) throws IOException {
+    public void sendPOSTHttpRequest(Object body) throws IOException {
         mapper.writeValue(writer, body);
         String jsonBody = writer.toString();
 
         response =
                 given()
                         .when()
-                        .contentType(ContentType.JSON)
                         .body(jsonBody)
-                        .post(url)
-                        .then().log().body()
+                        .post()
+                        .then()
+                        .log().body()
                         .extract().response();
     }
 
@@ -55,7 +57,7 @@ public class Steps {
         int realStatusCode = response
                 .then()
                 .extract().statusCode();
-        assertEquals(realStatusCode, statusCode, "Ответ имеет статус код " + realStatusCode + " вместо " + statusCode);
+        assertEquals(statusCode, realStatusCode, "Ответ имеет статус код " + realStatusCode + " вместо " + statusCode);
     }
 
     @Step("Ответ соответствует json schema")
@@ -83,7 +85,7 @@ public class Steps {
         } else {
             equality = false;
         }
-        assertEquals(equality, true, "Данные из ответа не соответствуют с реальными данными");
+        assertEquals( true, equality, "Данные из ответа не соответствуют с реальными данными");
 
     }
 
@@ -108,8 +110,4 @@ public class Steps {
         return val;
 
     }
-
-
-
-
 }
