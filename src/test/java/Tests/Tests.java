@@ -104,9 +104,9 @@ public class Tests extends BaseTest {
         Specifications.instalSpecifications(specWithURLandContentType(getUrlProperty("postUrl"), ContentType.JSON));
         step.sendPOSTHttpRequest(post);
         step.verifyStatusCode(201);
-        assertEquals(post.getTitle(),step.getValue("title"), "Значение title не совпадает");
-        assertEquals(post.getUserId().toString(),step.getValue("userId"), "Значение id не совпадает");
-        assertEquals(post.getBody(),step.getValue("body"), "Значение body не совпадает");
+        step.assertParamEquals(post.getTitle(),step.getValue("title"), "Значение title не совпадает");
+        step.assertParamEquals(post.getUserId().toString(),step.getValue("userId"), "Значение id не совпадает");
+        step.assertParamEquals(post.getBody(),step.getValue("body"), "Значение body не совпадает");
     }
 
     @Test

@@ -64,7 +64,7 @@ public class Steps {
                         matchesJsonSchema(new File(jsonFilePath)));
     }
 
-    @Step("Данные ответа соотсвтуют реальными")
+    @Step("Данные ответа соотсвтуют ожидаемому результату")
     public void verifyResponseMatchesRealData(String filePathWithRealData) throws IOException {
         boolean equality = true;
         answer = response.then().extract().asString();
@@ -82,7 +82,7 @@ public class Steps {
         } else {
             equality = false;
         }
-        assertEquals( true, equality, "Данные из ответа не соответствуют с реальными данными");
+        assertEquals( true, equality, "Данные из ответа не соответствуют ожидаемому результату");
 
     }
 
@@ -105,6 +105,10 @@ public class Steps {
     public String getValue(String value)  {
         String val = response.then().extract().body().jsonPath().get(value).toString();
         return val;
+    }
 
+    @Step("Проверка параметра")
+    public void assertParamEquals(Object expected, Object actual, String message) {
+        assertEquals(expected, actual, message);
     }
 }
